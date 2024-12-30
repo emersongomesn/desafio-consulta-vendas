@@ -17,34 +17,28 @@ import java.util.List;
 @RequestMapping(value = "/sales")
 public class SaleController {
 
-    @Autowired
-    private SaleService service;
+	@Autowired
+	private SaleService service;
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<SaleMinDTO> findById(@PathVariable Long id) {
-        SaleMinDTO dto = service.findById(id);
-        return ResponseEntity.ok(dto);
-    }
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<SaleMinDTO> findById(@PathVariable Long id) {
+		SaleMinDTO dto = service.findById(id);
+		return ResponseEntity.ok(dto);
+	}
 
-    @GetMapping(value = "/report")
-    public ResponseEntity<Page<SaleReportDTO>> getReport(
-            @RequestParam(value = "minDate", defaultValue = "") String minDate,
-            @RequestParam(value = "maxDate", defaultValue = "") String maxDate,
-            @RequestParam(name = "name", defaultValue = "") String name,
-            Pageable pageable
-    )
-    {
-        Page<SaleReportDTO> dto = service.getReport(minDate, maxDate,name, pageable);
-        return ResponseEntity.ok(dto);
-    }
+	@GetMapping(value = "/report")
+	public ResponseEntity<Page<SaleReportDTO>> getReport(
+			@RequestParam(value = "minDate", defaultValue = "") String minDate,
+			@RequestParam(value = "maxDate", defaultValue = "") String maxDate,
+			@RequestParam(name = "name", defaultValue = "") String name, Pageable pageable) {
+		Page<SaleReportDTO> dto = service.sellerReport(minDate, maxDate, name, pageable);
+		return ResponseEntity.ok(dto);
+	}
 
-    @GetMapping(value = "/summary")
-    public ResponseEntity<List<SaleDTO>> getSummary(
-            @RequestParam(value = "minDate", defaultValue = "") String minDate,
-            @RequestParam(value = "maxDate", defaultValue = "") String maxDate
-    )
-    {
-        List<SaleDTO> dto = service.getSummary(minDate, maxDate);
-        return ResponseEntity.ok(dto);
-    }
+	@GetMapping(value = "/summary")
+	public ResponseEntity<List<SaleDTO>> getSummary(@RequestParam(value = "minDate", defaultValue = "") String minDate,
+			@RequestParam(value = "maxDate", defaultValue = "") String maxDate) {
+		List<SaleDTO> dto = service.salesSummary(minDate, maxDate);
+		return ResponseEntity.ok(dto);
+	}
 }
