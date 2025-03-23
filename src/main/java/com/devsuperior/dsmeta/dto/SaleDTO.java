@@ -6,12 +6,12 @@ public class SaleDTO {
 
 	private String name;
 	private Double amount;
-		
+
 	public SaleDTO(String name, Double amount) {
 		this.name = name;
 		this.amount = amount;
 	}
-	
+
 	public SaleDTO(SaleMinProjection entity) {
 		name = entity.getName();
 		amount = entity.getAmount();
